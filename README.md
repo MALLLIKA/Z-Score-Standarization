@@ -1,8 +1,9 @@
-# Z-Score Data Standarization
 # Import packages
 import numpy as np
 import pandas as pd
 from scipy import stats
+# Import matplotlib pyplot
+from matplotlib import pyplot as plt
 
 # Read in housing data
 brooklyn_one_bed = pd.read_csv('brooklyn-one-bed.csv')
@@ -27,23 +28,11 @@ queens_median=np.median(queens_price)
 # Add mode calculations below
 
 
+brooklyn_mode=stats.mode(brooklyn_price)
+manhattan_mode=stats.mode(manhattan_price)
+queens_mode=stats.mode(queens_price)
 
 
-
-
-
-
-##############################################
-##############################################
-##############################################
-
-
-
-
-
-
-
-# Don't look below here
 # Mean
 try:
     print("The mean price in Brooklyn is " + str(round(brooklyn_mean, 2)))
@@ -87,3 +76,16 @@ try:
     print("The mode price in Queens is " + str(queens_mode[0][0]) + " and it appears " + str(queens_mode[1][0]) + " times out of " + str(len(queens_price)))
 except NameError:
     print("The mode price in Queens is not yet defined.")
+#Histogram for Manhattan
+plt.hist(brooklyn_price, range=(1000, 8000),   bins=14,  edgecolor='black')
+plt.title("Brroklyn 1BHK prices at NYC")
+plt.xlabel("brooklyn_price")
+plt.ylabel("Count")
+plt.axvline(brooklyn_mean, color='r', linestyle='solid', linewidth=3, label="Mean")
+plt.axvline(brooklyn_median, color='y', linestyle='dotted', linewidth=3, label="Median")
+#plt.axvline(brooklyn_mode, color='orange', #linestyle='dashed', linewidth=3, #label="Mode")
+plt.legend()
+ 
+plt.show()
+
+![](images/github-histogram.png)
